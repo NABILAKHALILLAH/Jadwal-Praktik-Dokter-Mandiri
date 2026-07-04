@@ -5,24 +5,24 @@
 ## 🔣 Legenda Simbol Use Case (Standar UML)
 
 ```
-  Simbol                     Nama              Keterangan
-  ─────────────────────────────────────────────────────────────────
-     O                       Aktor             Pengguna/entitas di luar sistem
-    /|\                       (Stick Figure)    yang berinteraksi dengan sistem
-    / \
+  SIMBOL                          NAMA              KETERANGAN
+  ══════════════════════════════════════════════════════════════════════
+     O
+    /|\                           Aktor             Entitas luar yang berinteraksi
+    / \                                             dengan sistem
 
-  (  nama use case  )        Use Case          Fungsionalitas yang disediakan sistem
-     [elips/oval]
+  (                          )    Use Case          Fungsi/layanan yang tersedia
+   nama use case                  [Oval]            dalam sistem
 
-  ┌─────────────────┐
-  │   nama sistem   │        Batas Sistem      Kotak pembatas ruang lingkup sistem
-  └─────────────────┘
+  ╔═══════════════════════════╗
+  ║       NAMA SISTEM         ║   Batas Sistem      Kotak pembatas ruang lingkup
+  ╚═══════════════════════════╝
 
-  Aktor ————————— (Use Case) Asosiasi          Hubungan aktor dengan use case
+  Aktor ───────── (Use Case)      Asosiasi          Hubungan langsung aktor ke use case
 
-  (A) - - -<<include>>- - -> (B)   Include     A selalu memanggil B (wajib)
+  (A) - - -<<include>>- - ▶ (B)  Include           A SELALU memanggil B (wajib)
 
-  (A) - - -<<extend>> - - -> (B)   Extend      A memperluas B (opsional/kondisional)
+  (A) - - - <<extend>>- - ▶ (B)  Extend            A memperluas B (kondisional)
 ```
 
 ---
@@ -30,123 +30,133 @@
 ## 🗂️ Diagram Use Case
 
 ```
-                    ┌──────────────────────────────────────────────────────────────┐
-                    │         SISTEM JADWAL PRAKTIK DOKTER MANDIRI                 │
-                    │                (DoctorSchedule Contract)                     │
-                    │                                                              │
-   O                │                                                              │
-  /|\  ─────────────┼────────────── ( Mendaftarkan Diri sebagai Dokter )           │
-  / \               │                              |                               │
-Dokter              │                              | - - -<<include>>- - ->        │
-                    │                              ▼                               │
-   O                │                  ( Validasi: Belum Terdaftar )               │
-  /|\  ─────────────┼──────────────────────────────────────────────────────────    │
-  / \               │                                                              │
-Dokter              │                                                              │
-                    │                                                              │
-   O                │                                                              │
-  /|\  ─────────────┼────────────── ( Memperbarui Jadwal Praktik )                │
-  / \               │                              |                               │
-Dokter              │                              | - - -<<include>>- - ->        │
-                    │                              ▼                               │
-                    │                  ( Validasi: Sudah Terdaftar )               │
-                    │                                                              │
-                    │                                                              │
-   O                │                                                              │
-  /|\  ─────────────┼────────────── ( Melihat Info & Jadwal Dokter )              │
-  / \               │                              |                               │
-Pasien              │                              | - - -<<include>>- - ->        │
-                    │                              ▼                               │
-                    │                  ( Validasi: Dokter Terdaftar )              │
-                    │                                                              │
-   O                │                                                              │
-  /|\  ─────────────┼────────────── ( Melihat Semua Daftar Dokter )               │
-  / \               │                                                              │
-Pasien              │                                                              │
-                    │                                                              │
-                    │  ( Mendaftarkan Diri ) - - -<<extend>>- - -> ( Simpan Data )│
-                    │  ( Mendaftarkan Diri ) - - -<<extend>>- - -> ( Emit Event   │
-                    │                                                DoctorReg'd ) │
-                    │  ( Memperbarui Jadwal) - - -<<extend>>- - -> ( Simpan Data )│
-                    │  ( Memperbarui Jadwal) - - -<<extend>>- - -> ( Emit Event   │
-                    │                                              ScheduleUpd'd ) │
-                    └──────────────────────────────────────────────────────────────┘
-```
-
----
-
-## 🗂️ Diagram Use Case (Tampilan Lengkap per Aktor)
-
-```
-         O                    ┌──────────────────────────────────────────────┐
-        /|\                   │                                              │
-        / \                   │   ( Mendaftarkan Diri sebagai Dokter  ) ────┼── <<include>> ──▶ ( Validasi: Belum Terdaftar )
-      DOKTER ─────────────────┤                        |                    │
-                              │                        | <<extend>>         │
-                              │                        ▼                    │
-                              │            ( Simpan Data ke Blockchain )    │
-                              │                        |                    │
-                              │                        | <<extend>>         │
-                              │                        ▼                    │
-                              │         ( Emit Event: DoctorRegistered )    │
-                              │                                              │
-                              │   ( Memperbarui Jadwal Praktik        ) ────┼── <<include>> ──▶ ( Validasi: Sudah Terdaftar )
-      DOKTER ─────────────────┤                        |                    │
-                              │                        | <<extend>>         │
-         O                    │                        ▼                    │
-        /|\                   │            ( Simpan Data ke Blockchain )    │
-        / \                   │                        |                    │
-                              │                        | <<extend>>         │
-                              │                        ▼                    │
-                              │         ( Emit Event: ScheduleUpdated  )    │
-                              │                                              │
-                              │   ( Melihat Info & Jadwal Dokter      ) ────┼── <<include>> ──▶ ( Validasi: Dokter Terdaftar )
-      PASIEN ─────────────────┤                                              │
-                              │   ( Melihat Semua Daftar Dokter       )     │
-      PASIEN ─────────────────┤                                              │
-                              │                                              │
-         O                    └──────────────────────────────────────────────┘
-        /|\
-        / \
+                    ╔══════════════════════════════════════════════════════════════════╗
+                    ║           SISTEM JADWAL PRAKTIK DOKTER MANDIRI                  ║
+                    ║                  ( DoctorSchedule Contract )                    ║
+                    ║                                                                  ║
+                    ║                                                                  ║
+                    ║                                                                  ║
+      O             ║                                                                  ║
+     /|\            ║     ┌─────────────────────────────────────────────────────┐     ║
+     / \            ║     │                                                     │     ║
+    Dokter ─────────╫─────┤  UC-01: Mendaftarkan Diri sebagai Dokter            │     ║
+                    ║     │                                                     │     ║
+                    ║     └──────────────────────┬──────────────────────────────┘     ║
+                    ║                            │                                    ║
+                    ║                            │  - - - <<include>> - - - ▶         ║
+                    ║                            │                                    ║
+                    ║                            ▼                                    ║
+                    ║     ┌─────────────────────────────────────────────────────┐     ║
+                    ║     │                                                     │     ║
+                    ║     │  UC-02: Validasi Akun Belum Terdaftar               │     ║
+                    ║     │                                                     │     ║
+                    ║     └─────────────────────────────────────────────────────┘     ║
+                    ║                                                                  ║
+                    ║                                                                  ║
+      O             ║                                                                  ║
+     /|\            ║     ┌─────────────────────────────────────────────────────┐     ║
+     / \            ║     │                                                     │     ║
+    Dokter ─────────╫─────┤  UC-03: Memperbarui Jadwal Praktik                  │     ║
+                    ║     │                                                     │     ║
+                    ║     └──────────────────────┬──────────────────────────────┘     ║
+                    ║                            │                                    ║
+                    ║                            │  - - - <<include>> - - - ▶         ║
+                    ║                            │                                    ║
+                    ║                            ▼                                    ║
+                    ║     ┌─────────────────────────────────────────────────────┐     ║
+                    ║     │                                                     │     ║
+                    ║     │  UC-04: Validasi Akun Sudah Terdaftar               │     ║
+                    ║     │                                                     │     ║
+                    ║     └─────────────────────────────────────────────────────┘     ║
+                    ║                                                                  ║
+                    ║                                                                  ║
+      O             ║                                                                  ║
+     /|\            ║     ┌─────────────────────────────────────────────────────┐     ║
+     / \            ║     │                                                     │     ║
+    Pasien ─────────╫─────┤  UC-05: Melihat Info & Jadwal Dokter                │     ║
+                    ║     │                                                     │     ║
+                    ║     └──────────────────────┬──────────────────────────────┘     ║
+                    ║                            │                                    ║
+                    ║                            │  - - - <<include>> - - - ▶         ║
+                    ║                            │                                    ║
+                    ║                            ▼                                    ║
+                    ║     ┌─────────────────────────────────────────────────────┐     ║
+                    ║     │                                                     │     ║
+                    ║     │  UC-06: Validasi Dokter Terdaftar di Sistem         │     ║
+                    ║     │                                                     │     ║
+                    ║     └─────────────────────────────────────────────────────┘     ║
+                    ║                                                                  ║
+                    ║                                                                  ║
+      O             ║                                                                  ║
+     /|\            ║     ┌─────────────────────────────────────────────────────┐     ║
+     / \            ║     │                                                     │     ║
+    Pasien ─────────╫─────┤  UC-07: Melihat Semua Daftar Dokter                 │     ║
+                    ║     │                                                     │     ║
+                    ║     └─────────────────────────────────────────────────────┘     ║
+                    ║                                                                  ║
+                    ║                                                                  ║
+                    ║  ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐   ║
+                    ║       RELASI EXTEND (Dipicu jika transaksi berhasil)           ║
+                    ║  │                                                         │   ║
+                    ║    UC-01 - - - <<extend>> - - ▶ UC-08: Simpan Data             ║
+                    ║  │                                       ke Blockchain     │   ║
+                    ║    UC-01 - - - <<extend>> - - ▶ UC-09: Emit Event               ║
+                    ║  │                                       DoctorRegistered  │   ║
+                    ║    UC-03 - - - <<extend>> - - ▶ UC-08: Simpan Data              ║
+                    ║  │                                       ke Blockchain     │   ║
+                    ║    UC-03 - - - <<extend>> - - ▶ UC-10: Emit Event               ║
+                    ║  │                                       ScheduleUpdated   │   ║
+                    ║                                                                  ║
+                    ║  └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘   ║
+                    ║                                                                  ║
+                    ╚══════════════════════════════════════════════════════════════════╝
 ```
 
 ---
 
 ## 👤 Deskripsi Aktor
 
-| Simbol | Aktor | Peran |
-|--------|-------|-------|
-| O /\|/ / \ | **Dokter** | Mendaftarkan diri dan mengelola jadwal praktik via wallet address |
-| O /\|/ / \ | **Pasien** | Mencari dan melihat informasi serta jadwal dokter |
+| Simbol | Aktor | Peran dalam Sistem |
+|--------|-------|--------------------|
+| O /\|/ / \ | **Dokter** | Mendaftarkan diri ke sistem dan memperbarui jadwal praktiknya sendiri melalui wallet address |
+| O /\|/ / \ | **Pasien** | Melihat informasi dan jadwal dokter yang tersedia di sistem |
 
 ---
 
 ## 📋 Deskripsi Use Case
 
-| No | Use Case | Aktor | Relasi | Deskripsi |
-|----|----------|-------|--------|-----------|
-| UC-01 | Mendaftarkan Diri sebagai Dokter | Dokter | Primary | Dokter mendaftarkan nama, spesialisasi, dan jadwal ke blockchain |
-| UC-02 | Validasi: Belum Terdaftar | Sistem | `<<include>>` dari UC-01 | Memastikan wallet belum pernah mendaftar sebelumnya |
-| UC-03 | Memperbarui Jadwal Praktik | Dokter | Primary | Dokter mengubah detail jadwal praktiknya |
-| UC-04 | Validasi: Sudah Terdaftar | Sistem | `<<include>>` dari UC-03 | Memastikan hanya dokter terdaftar yang bisa update jadwal |
-| UC-05 | Melihat Info & Jadwal Dokter | Pasien | Primary | Pasien mengecek nama, spesialisasi, dan jadwal dokter tertentu |
-| UC-06 | Validasi: Dokter Terdaftar | Sistem | `<<include>>` dari UC-05 | Memastikan address dokter yang dicari ada di sistem |
-| UC-07 | Melihat Semua Daftar Dokter | Pasien | Primary | Pasien melihat seluruh daftar address dokter yang terdaftar |
-| UC-08 | Simpan Data ke Blockchain | Sistem | `<<extend>>` dari UC-01, UC-03 | Data tersimpan permanen di storage blockchain jika berhasil |
-| UC-09 | Emit Event: DoctorRegistered | Sistem | `<<extend>>` dari UC-01 | Event dipancarkan saat pendaftaran dokter berhasil |
-| UC-10 | Emit Event: ScheduleUpdated | Sistem | `<<extend>>` dari UC-03 | Event dipancarkan saat jadwal dokter berhasil diperbarui |
+| ID | Nama Use Case | Aktor | Relasi | Deskripsi |
+|----|---------------|-------|--------|-----------|
+| UC-01 | Mendaftarkan Diri sebagai Dokter | Dokter | Primary | Dokter memasukkan nama, spesialisasi, dan jadwal untuk didaftarkan ke blockchain |
+| UC-02 | Validasi Akun Belum Terdaftar | Sistem | `<<include>>` ← UC-01 | Sistem memeriksa apakah wallet address belum pernah mendaftar sebelumnya |
+| UC-03 | Memperbarui Jadwal Praktik | Dokter | Primary | Dokter yang sudah terdaftar mengubah detail jadwal praktiknya |
+| UC-04 | Validasi Akun Sudah Terdaftar | Sistem | `<<include>>` ← UC-03 | Sistem memeriksa apakah wallet address sudah terdaftar sebagai dokter |
+| UC-05 | Melihat Info & Jadwal Dokter | Pasien | Primary | Pasien memasukkan address dokter untuk melihat nama, spesialisasi, dan jadwal |
+| UC-06 | Validasi Dokter Terdaftar di Sistem | Sistem | `<<include>>` ← UC-05 | Sistem memeriksa apakah address dokter yang dicari ada di sistem |
+| UC-07 | Melihat Semua Daftar Dokter | Pasien | Primary | Pasien melihat seluruh daftar address dokter yang terdaftar di sistem |
+| UC-08 | Simpan Data ke Blockchain | Sistem | `<<extend>>` ← UC-01, UC-03 | Data dokter atau jadwal disimpan secara permanen jika transaksi berhasil |
+| UC-09 | Emit Event: DoctorRegistered | Sistem | `<<extend>>` ← UC-01 | Event dipancarkan ke blockchain saat pendaftaran dokter berhasil |
+| UC-10 | Emit Event: ScheduleUpdated | Sistem | `<<extend>>` ← UC-03 | Event dipancarkan ke blockchain saat pembaruan jadwal berhasil |
 
 ---
 
-## 🔗 Relasi Antar Use Case
+## 🔗 Ringkasan Relasi
 
 ```
-  UC-01 ── <<include>> ──▶ UC-02   Daftar dokter SELALU validasi dulu (wajib)
-  UC-03 ── <<include>> ──▶ UC-04   Update jadwal SELALU validasi dulu (wajib)
-  UC-05 ── <<include>> ──▶ UC-06   Cek info SELALU validasi dokter dulu (wajib)
+  ┌──────────────────────────────────────────────────────────────────────┐
+  │  INCLUDE  (wajib, selalu dijalankan)                                 │
+  │                                                                      │
+  │  UC-01 ── <<include>> ──▶ UC-02  (wajib validasi sebelum daftar)    │
+  │  UC-03 ── <<include>> ──▶ UC-04  (wajib validasi sebelum update)    │
+  │  UC-05 ── <<include>> ──▶ UC-06  (wajib validasi sebelum cek info)  │
+  └──────────────────────────────────────────────────────────────────────┘
 
-  UC-01 ── <<extend>>  ──▶ UC-08   Jika berhasil daftar, data tersimpan (kondisional)
-  UC-01 ── <<extend>>  ──▶ UC-09   Jika berhasil daftar, event dipancarkan (kondisional)
-  UC-03 ── <<extend>>  ──▶ UC-08   Jika berhasil update, data diperbarui (kondisional)
-  UC-03 ── <<extend>>  ──▶ UC-10   Jika berhasil update, event dipancarkan (kondisional)
+  ┌──────────────────────────────────────────────────────────────────────┐
+  │  EXTEND  (kondisional, hanya jika transaksi berhasil)                │
+  │                                                                      │
+  │  UC-01 ── <<extend>> ──▶ UC-08  (simpan data dokter baru)           │
+  │  UC-01 ── <<extend>> ──▶ UC-09  (pancarkan event DoctorRegistered)  │
+  │  UC-03 ── <<extend>> ──▶ UC-08  (perbarui data jadwal)              │
+  │  UC-03 ── <<extend>> ──▶ UC-10  (pancarkan event ScheduleUpdated)   │
+  └──────────────────────────────────────────────────────────────────────┘
 ```
