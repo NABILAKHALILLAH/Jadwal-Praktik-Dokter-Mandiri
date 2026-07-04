@@ -1,0 +1,221 @@
+{
+	"compiler": {
+		"version": "0.8.34+commit.80d5c536"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "doctorAddress",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "specialization",
+						"type": "string"
+					}
+				],
+				"name": "DoctorRegistered",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "doctorAddress",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "newSchedule",
+						"type": "string"
+					}
+				],
+				"name": "ScheduleUpdated",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "doctorAddresses",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "doctors",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "specialization",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "scheduleDetails",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "isRegistered",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getAllDoctors",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_doctorAddress",
+						"type": "address"
+					}
+				],
+				"name": "getDoctorInfo",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "specialization",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "scheduleDetails",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_specialization",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_scheduleDetails",
+						"type": "string"
+					}
+				],
+				"name": "registerDoctor",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_newSchedule",
+						"type": "string"
+					}
+				],
+				"name": "updateSchedule",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/JadwalPraktikDokterMandiri.sol": "DoctorSchedule"
+		},
+		"evmVersion": "osaka",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/JadwalPraktikDokterMandiri.sol": {
+			"keccak256": "0xbb388dc5f16eee168aa08bcd5bdfece24503c8b0d1eab03fb5ab2e33d1bf499d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c95334895359d8c072e0f782ce8b94e837eeb8502fbd9f94b2aa4fd48bb256fe",
+				"dweb:/ipfs/Qma6JLqkUYY6nbVCErCcVaH1LtSBFxaS8Z7ngiyPEgPSR3"
+			]
+		}
+	},
+	"version": 1
+}
